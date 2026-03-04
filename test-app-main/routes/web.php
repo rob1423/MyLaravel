@@ -1,13 +1,23 @@
 <?php
-use App\Models\User;
-use App\Notifications\TestNotification;
 
-Route::get('/send-notification', function () {
+use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
-    $user = User::first();
+Route::get('/create-post', function () {
 
-    $user->notify(new TestNotification());
+    Post::create([
+        'title' => 'My First Post',
+        'content' => 'This post was created using Laravel Eloquent ORM.'
+    ]);
 
-    return "Notification Sent!";
+    return "Post created successfully";
+
+});
+
+Route::get('/posts', function () {
+
+    $posts = Post::all();
+
+    return $posts;
 
 });
