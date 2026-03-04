@@ -1,16 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Models\Post;
 
-Route::get('/create-post', function () {
+Route::post('/upload-file', function (Request $request) {
 
-    Post::create([
-        'title' => 'My First Post',
-        'content' => 'This post was created using Laravel Eloquent ORM.'
-    ]);
+    $path = $request->file('file')->store('uploads');
 
-    return "Post created successfully";
+    return redirect('/upload')->with('success', 'File uploaded successfully!');
 
 });
 
@@ -20,4 +18,8 @@ Route::get('/posts', function () {
 
     return $posts;
 
+});
+
+Route::get('/upload', function () {
+    return view('upload');
 });
